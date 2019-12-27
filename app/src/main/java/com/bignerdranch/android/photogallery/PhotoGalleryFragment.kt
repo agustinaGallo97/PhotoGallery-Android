@@ -16,18 +16,14 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
   private lateinit var photoRecyclerView: RecyclerView
   private lateinit var photoGalleryViewModel: PhotoGalleryViewModel
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    photoGalleryViewModel = ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
-  }
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     photoGalleryViewModel.galleryItemLiveData.observe(
       viewLifecycleOwner,
-      Observer { galleryItems -> photoRecyclerView.adapter = PhotoAdapter(galleryItems) })
+      Observer { galleryItems ->
+        photoRecyclerView.adapter = PhotoAdapter(galleryItems)
+      })
 
     setUpPhotoRecyclerView(view)
   }
@@ -35,5 +31,10 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
   private fun setUpPhotoRecyclerView(view: View) {
     photoRecyclerView = view.findViewById(R.id.photoRecyclerView)
     photoRecyclerView.layoutManager = GridLayoutManager(context, 3)
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    photoGalleryViewModel = ViewModelProviders.of(this).get(PhotoGalleryViewModel::class.java)
   }
 }

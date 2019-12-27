@@ -13,13 +13,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
 class FlickrFetchr {
+  companion object {
+    private const val TAG = "PhotoGalleryFragment"
+  }
+
   private val flickrApi: FlickrApi
 
   init {
-    val retrofit: Retrofit = Retrofit.Builder()
-      .baseUrl("https://api.flickr.com/")
-      .addConverterFactory(GsonConverterFactory.create())
-      .build()
+    val retrofit: Retrofit =
+      Retrofit.Builder()
+        .baseUrl("https://api.flickr.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     flickrApi = retrofit.create(FlickrApi::class.java)
   }
@@ -29,12 +34,14 @@ class FlickrFetchr {
     val flickrRequest: Call<FlickrResponse> = flickrApi.fetchPhotos()
 
     flickrRequest.enqueue(object : Callback<FlickrResponse> {
+
       override fun onFailure(call: Call<FlickrResponse>, t: Throwable) {
         Timber.d(t, "Failed to fetch photos")
       }
 
       override fun onResponse(call: Call<FlickrResponse>, response: Response<FlickrResponse>) {
         Timber.d("Response received: ${response.body()}")
+
         val flickrResponse: FlickrResponse? = response.body()
         val photoResponse: PhotoResponse? = flickrResponse?.photos
         var galleryItems: List<GalleryItem> = photoResponse?.galleryItems ?: mutableListOf()
