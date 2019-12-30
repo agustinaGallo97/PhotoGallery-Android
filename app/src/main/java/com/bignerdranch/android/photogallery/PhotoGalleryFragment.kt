@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
   companion object {
+    private const val SPAN_COUNT = 3
     fun newInstance() = PhotoGalleryFragment()
   }
 
@@ -34,7 +35,7 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
 
   private fun setUpPhotoRecyclerView(view: View) {
     photoRecyclerView = view.findViewById(R.id.photoRecyclerView)
-    photoRecyclerView.layoutManager = GridLayoutManager(context, 3)
+    photoRecyclerView.layoutManager = GridLayoutManager(context, SPAN_COUNT)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
