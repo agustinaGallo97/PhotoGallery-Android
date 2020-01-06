@@ -1,5 +1,6 @@
 package com.bignerdranch.android.photogallery
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bignerdranch.android.photogallery.api.FlickrApi
@@ -15,16 +16,18 @@ import timber.log.Timber
 class FlickrFetchr {
   companion object {
     private const val TAG = "PhotoGalleryFragment"
+    @StringRes
+    private const val BASE_URL = R.string.base_url
   }
 
   private val flickrApi: FlickrApi
 
   init {
     val retrofit: Retrofit =
-      Retrofit.Builder()
-        .baseUrl("https://api.flickr.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    Retrofit.Builder()
+      .baseUrl(PhotoGalleryApplication.context.resources.getString(BASE_URL))
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
 
     flickrApi = retrofit.create(FlickrApi::class.java)
   }

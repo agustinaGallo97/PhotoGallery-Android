@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PhotoGallery</string>
+    <string name="app_name" translatable="false">PhotoGallery</string>
+    <string name="base_url" translatable="false">https://api.flickr.com/</string>
 </resources>
